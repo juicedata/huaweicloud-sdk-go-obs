@@ -39,3 +39,14 @@ func WithReqPaymentHeader(requester PayerType) extensionHeaders {
 func WithTrafficLimitHeader(trafficLimit int64) extensionHeaders {
 	return setHeaderPrefix(TRAFFIC_LIMIT, strconv.FormatInt(trafficLimit, 10))
 }
+
+func WithHeader(key string, values []string) extensionHeaders {
+	return func(headers map[string][]string, isObs bool) error {
+		if len(values) == 0 {
+			delete(headers, key)
+		} else {
+			headers[key] = values
+		}
+		return nil
+	}
+}

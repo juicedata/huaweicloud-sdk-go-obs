@@ -585,6 +585,8 @@ func (input GetObjectInput) trans(isObs bool) (params map[string]string, headers
 	}
 	if input.RangeStart >= 0 && input.RangeEnd > input.RangeStart || input.RangeStart > 0 && input.RangeEnd == input.RangeStart {
 		headers[HEADER_RANGE] = []string{fmt.Sprintf("bytes=%d-%d", input.RangeStart, input.RangeEnd)}
+	} else if input.RangeStart > 0 && input.RangeEnd == -1 {
+		headers[HEADER_RANGE] = []string{fmt.Sprintf("bytes=%d-", input.RangeStart)}
 	}
 
 	if input.IfMatch != "" {
