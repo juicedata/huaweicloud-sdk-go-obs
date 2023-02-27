@@ -583,7 +583,7 @@ func (input GetObjectInput) trans(isObs bool) (params map[string]string, headers
 	if input.ImageProcess != "" {
 		params[PARAM_IMAGE_PROCESS] = input.ImageProcess
 	}
-	if input.RangeStart >= 0 && input.RangeEnd > input.RangeStart {
+	if input.RangeStart >= 0 && input.RangeEnd > input.RangeStart || input.RangeStart > 0 && input.RangeEnd == input.RangeStart {
 		headers[HEADER_RANGE] = []string{fmt.Sprintf("bytes=%d-%d", input.RangeStart, input.RangeEnd)}
 	}
 
